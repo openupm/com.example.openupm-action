@@ -1,0 +1,20 @@
+name: OpenUPM
+
+on:
+  push:
+    tags:
+      - '*'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: openupm/openupm-action@v1
+        with:
+          package: com.example.openupm-action
+          version: ${{ github.ref_name }}
+          tag: ${{ github.ref_name }}
