@@ -2,7 +2,8 @@
 
 Example Unity package repository for the OpenUPM publish wait GitHub Action.
 
-This repository demonstrates the anonymous OpenUPM publishing flow:
+This repository demonstrates the anonymous OpenUPM publishing flow from a tag
+push:
 
 1. Push a semver tag such as `1.0.0`.
 2. GitHub Actions requests a GitHub OIDC token for the `openupm` audience.
@@ -16,3 +17,63 @@ No OpenUPM account, personal access token, or repository secret is required.
 
 The package is stored in `package/` and uses the package name
 `com.example.openupm-action`.
+
+## Tag Push Demo
+
+The included `.github/workflows/openupm.yml` workflow runs for semver tags:
+
+```bash
+git tag 1.0.0
+git push origin 1.0.0
+```
+
+The tag name is passed as both the OpenUPM package version and the Git tag:
+
+```yaml
+- uses: openupm/openupm-action@v1
+  with:
+    package: com.example.openupm-action
+    version: ${{ github.ref_name }}
+    tag: ${{ github.ref_name }}
+```
+
+The workflow grants:
+
+```yaml
+permissions:
+  id-token: write
+  contents: read
+```
+
+`id-token: write` lets the action request the short-lived GitHub OIDC token
+that OpenUPM verifies.
+
+## GitHub Release Variant
+
+The same action can run after a GitHub Release is published. Use this shape if
+you prefer release events over tag-push events:
+
+```yaml
+name: OpenUPM
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: openupm/openupm-action@v1
+        with:
+          package: com.example.openupm-action
+          version: ${{ github.event.release.tag_name }}
+          tag: ${{ github.event.release.tag_name }}
+```
+
+If the release tag uses a prefix such as `v1.0.0`, strip the prefix for
+`version` and pass the original tag as `tag`.
