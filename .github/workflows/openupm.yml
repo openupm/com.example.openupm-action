@@ -17,3 +17,4 @@ jobs:
         with:
           package: com.example.openupm-action
           tag: ${{ github.ref_name }}
+          timeout-minutes: 1
