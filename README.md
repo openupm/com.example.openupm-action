@@ -1,6 +1,8 @@
 # com.example.openupm-action
 
-Example Unity package repository for the OpenUPM publish wait GitHub Action.
+Example Unity package repository for the
+[`openupm/openupm-action`](https://github.com/openupm/openupm-action) publish
+wait GitHub Action.
 
 This repository demonstrates the anonymous OpenUPM publishing flow from a tag
 push:
