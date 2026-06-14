@@ -5,11 +5,11 @@ Example Unity package repository for the OpenUPM publish wait GitHub Action.
 This repository demonstrates the anonymous OpenUPM publishing flow from a tag
 push:
 
-1. Push a semver tag such as `1.0.0`.
+1. Push a Git tag that contains a parseable semver package version.
 2. GitHub Actions requests a GitHub OIDC token for the `openupm` audience.
 3. `openupm/openupm-action` asks OpenUPM to scan this registered repository.
-4. The workflow waits until the matching package version is installable or
-   fails with the OpenUPM release reason.
+4. The workflow waits until that package version is installable or fails with
+   the OpenUPM release reason.
 
 No OpenUPM account, personal access token, or repository secret is required.
 
@@ -20,9 +20,10 @@ The package is stored in `package/` and uses the package name
 
 ## Tag Push Demo
 
-The included `.github/workflows/openupm.yml` workflow runs for tags. Send only
-tags that contain a parseable semver package version, such as `1.0.0`,
-`v1.0.0`, `upm/1.0.0`, or `com.example.openupm-action@v1.0.0`:
+The included `.github/workflows/openupm.yml` workflow runs for tags. Send a tag
+to `openupm/openupm-action` only when the tag contains a parseable semver
+package version, such as `1.0.0`, `v1.0.0`, `upm/1.0.0`, or
+`com.example.openupm-action@v1.0.0`:
 
 ```bash
 git tag 1.0.0
