@@ -55,9 +55,10 @@ that OpenUPM verifies.
 
 ## GitHub Release Variant
 
-The same action can run after a GitHub Release is published. Use the
-[documented GitHub Release workflow](https://openupm.com/docs/github-action-publish.html#github-release-workflow)
-for packages that use GitHub Release asset tracking, including signed packages:
+The same action can run after a GitHub Release is published. For packages that
+use GitHub Release asset tracking, including signed packages, follow the
+[documented GitHub Release guidance](https://openupm.com/docs/github-action-publish.html#github-release-workflow):
+trigger OpenUPM only after the package asset is attached to the release.
 
 ```yaml
 name: OpenUPM
