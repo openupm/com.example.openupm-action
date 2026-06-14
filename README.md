@@ -20,15 +20,17 @@ The package is stored in `package/` and uses the package name
 
 ## Tag Push Demo
 
-The included `.github/workflows/openupm.yml` workflow runs for semver tags:
+The included `.github/workflows/openupm.yml` workflow runs for tags. Send only
+tags that contain a parseable semver package version, such as `1.0.0`,
+`v1.0.0`, `upm/1.0.0`, or `com.example.openupm-action@v1.0.0`:
 
 ```bash
 git tag 1.0.0
 git push origin 1.0.0
 ```
 
-The tag name is passed to OpenUPM, which derives the package version from the
-tag:
+The tag name is passed to the action. Tags without a parseable semver package
+version are rejected before the action contacts OpenUPM:
 
 ```yaml
 - uses: openupm/openupm-action@v1
@@ -74,5 +76,5 @@ jobs:
           tag: ${{ github.event.release.tag_name }}
 ```
 
-OpenUPM can derive versions from common tag shapes such as `1.0.0`, `v1.0.0`,
-`upm/1.0.0`, and `com.example.openupm-action@v1.0.0`.
+Release tags follow the same rule: use a tag that contains a parseable semver
+package version, or the action fails before contacting OpenUPM.
