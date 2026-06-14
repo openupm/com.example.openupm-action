@@ -5,7 +5,7 @@ Example Unity package repository for the
 wait GitHub Action.
 
 This repository demonstrates the anonymous OpenUPM publishing flow from a tag
-push:
+push. It is intentionally a tag-push workflow demo:
 
 1. Push a Git tag that contains a parseable semver package version.
 2. GitHub Actions requests a GitHub OIDC token for the `openupm` audience.
@@ -55,8 +55,9 @@ that OpenUPM verifies.
 
 ## GitHub Release Variant
 
-The same action can run after a GitHub Release is published. Use this shape if
-you prefer release events over tag-push events:
+The same action can run after a GitHub Release is published. Use the
+[documented GitHub Release workflow](https://openupm.com/docs/github-action-publish.html#github-release-workflow)
+for packages that use GitHub Release asset tracking, including signed packages:
 
 ```yaml
 name: OpenUPM
