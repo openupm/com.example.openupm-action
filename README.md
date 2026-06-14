@@ -27,13 +27,13 @@ git tag 1.0.0
 git push origin 1.0.0
 ```
 
-The tag name is passed as both the OpenUPM package version and the Git tag:
+The tag name is passed to OpenUPM, which derives the package version from the
+tag:
 
 ```yaml
 - uses: openupm/openupm-action@v1
   with:
     package: com.example.openupm-action
-    version: ${{ github.ref_name }}
     tag: ${{ github.ref_name }}
 ```
 
@@ -71,9 +71,8 @@ jobs:
       - uses: openupm/openupm-action@v1
         with:
           package: com.example.openupm-action
-          version: ${{ github.event.release.tag_name }}
           tag: ${{ github.event.release.tag_name }}
 ```
 
-If the release tag uses a prefix such as `v1.0.0`, strip the prefix for
-`version` and pass the original tag as `tag`.
+OpenUPM can derive versions from common tag shapes such as `1.0.0`, `v1.0.0`,
+`upm/1.0.0`, and `com.example.openupm-action@v1.0.0`.
